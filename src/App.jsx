@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from "react-router-dom";
 import './assets/css/bootstrap.min.css'
 import './assets/css/font-awesome.css'
 import './assets/css/templatemo-hexashop.css'
@@ -7,7 +8,6 @@ import './assets/css/lightbox.css'
 import Product from './components/Product.jsx'
 
 function App() {
-  //const [count, setCount] = useState(0)
   const [products, setProducts] = useState([]);
   useEffect(() => {
     fetch('https://dummyjson.com/products?limit=9')
@@ -42,6 +42,18 @@ function App() {
         </div>
     </section>
    {/*  <!-- ***** Products Area Ends ***** --> */}
+   <footer>
+    <div className="container">
+      <ul>
+        <li>
+        <Link to='/about'>About</Link>
+        </li>
+        <li>
+        <Link to='/contact'>Contact</Link>
+        </li>
+      </ul>
+    </div>
+   </footer>
     </>
   )
 }
