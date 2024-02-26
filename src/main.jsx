@@ -1,12 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React from "react";
+import ReactDOM from "react-dom/client";
 /* import {createBrowserRouter, RouterProvider,} from "react-router-dom"; */
-import {BrowserRouter, Routes,Route} from "react-router-dom";
-import Index from './pages/index.jsx'
-import About from './pages/about.jsx'
-import Contact from './pages/contact.jsx'
-import Product from './pages/product.jsx'
-import Layout from './layout/Layout.jsx'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Index from "./pages/index.jsx";
+import About from "./pages/about.jsx";
+import Contact from "./pages/contact.jsx";
+import Product from "./pages/product.jsx";
+import Layout from "./layout/Layout.jsx";
 /* const router = createBrowserRouter([
   {
     path: "/",
@@ -30,21 +30,21 @@ import Layout from './layout/Layout.jsx'
   },
 ]); */
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-  {/*    <Layout>
+    {/*    <Layout>
         <RouterProvider router={router} />
       </Layout> */}
     <BrowserRouter>
       <Layout>
-       <Routes>
-        <Route path='/' element={<Index/>}/>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/contact' element={<Contact/>}/>
-        <Route path='/product/:id' element={<Product/>}/>
-        <Route path='*' element={<h1>404 - Not Found Page</h1>}/>
-       </Routes>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="*" element={<h1>404 - Not Found Page</h1>} />
+        </Routes>
       </Layout>
     </BrowserRouter>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
