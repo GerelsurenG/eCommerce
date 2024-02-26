@@ -1,6 +1,8 @@
+import PageHeading from "../components/PageHeading.jsx";
 export default function Contact() {
     return (
-         /*  <!-- ***** Contact Area Starts ***** --> */
+        <>
+        <PageHeading></PageHeading>
          <div className="contact-us">
             <div className="container">
                 <div className="row">
@@ -44,5 +46,6 @@ export default function Contact() {
                 </div>
             </div>
          </div>
+        </>
     )  
 };

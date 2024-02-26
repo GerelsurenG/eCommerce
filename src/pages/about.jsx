@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-
+import PageHeading from "../components/PageHeading.jsx";
 export default function About() {
     return (
         <>
+        <PageHeading></PageHeading>
          {/* <!-- ***** About Area Starts ***** --> */}
         <div className="about-us">
             <div className="container">
