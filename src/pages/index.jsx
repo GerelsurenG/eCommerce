@@ -7,7 +7,10 @@ import "../assets/css/owl-carousel.css";
 import "../assets/css/lightbox.css";
 import Product from "../components/Product.jsx";
 import PageHeading from "../components/PageHeading.jsx";
+import useData from "../customHooks/useData.jsx";
 export default function Index() {
+  /*
+  custom hook bolgoj componenthoots dotor bichlee
   const [products, setProducts] = useState([]);
   useEffect(() => {
     fetch("https://dummyjson.com/products?limit=9")
@@ -15,7 +18,16 @@ export default function Index() {
       .then((data) => {
         setProducts(data.products);
       });
-  }, []);
+  }, []); */
+  const { data, loading } = useData("https://dummyjson.com/products?limit=9", {
+    products: [],
+  });
+
+  if (loading) {
+    return <div>...</div>;
+  }
+  const products = data.products;
+
   return (
     <>
       <PageHeading></PageHeading>

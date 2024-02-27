@@ -1,18 +1,25 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import PageHeading from "../components/PageHeading.jsx";
+import { ApplicationContext } from "../layout/Layout.jsx";
+import useData from "../customHooks/useData.jsx";
+
 export default function Product() {
-  const [product, setProduct] = useState(null);
+  const { basket, setBasket } = useContext(ApplicationContext);
   const params = useParams();
+  /*  custom hook bolgoj componenthoots dotor bichlee  
+  const [product, setProduct] = useState(null);
   useEffect(() => {
     fetch("https://dummyjson.com/product/" + params.id)
       .then((response) => response.json())
       .then((data) => {
         setProduct(data);
       });
-  }, []);
-
-  if (!product) {
+  }, []); */
+  const { data: product, loading } = useData(
+    "https://dummyjson.com/product/" + params.id
+  );
+  if (loading) {
     return <div>...</div>;
   }
   return (
@@ -79,9 +86,11 @@ export default function Product() {
                   </div>
                 </div>
                 <div className="total">
-                  <h4>Total: $210.00</h4>
+                  <h4>Total: $</h4>
                   <div className="main-border-button">
-                    <a href="#">Add To Cart</a>
+                    <a href="#" onClick={() => setBasket([...basket, product])}>
+                      Add To Cart
+                    </a>
                   </div>
                 </div>
               </div>

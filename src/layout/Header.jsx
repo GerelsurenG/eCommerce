@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ApplicationContext } from "./Layout.jsx";
 
 export default function Header() {
+  const { basket } = useContext(ApplicationContext);
+
   return (
     <>
       <header className="header-area header-sticky">
@@ -9,9 +13,9 @@ export default function Header() {
             <div className="col-12">
               <nav className="main-nav">
                 {/* ***** Logo Start ***** */}
-                <a href="/" className="logo">
+                <Link to="/" className="logo">
                   <img src="/images/logo.png" />
-                </a>
+                </Link>
                 {/* ***** Logo End ***** */}
                 {/* ***** Menu Start ***** */}
                 <ul className="nav">
@@ -34,10 +38,13 @@ export default function Header() {
                       </li>
                     </ul>
                   </li>
+                  <li className="scroll-to-section">
+                    <Link to="/shopping-card">Shop :{basket.length}</Link>
+                  </li>
                 </ul>
-                <a className="menu-trigger">
+                <div className="menu-trigger">
                   <span>Menu</span>
-                </a>
+                </div>
                 {/* ***** Menu End ***** */}
               </nav>
             </div>
