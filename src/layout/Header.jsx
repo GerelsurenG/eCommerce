@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ApplicationContext } from "./Layout.jsx";
+import Profile from "../components/auth/Profile.jsx";
 
 export default function Header() {
   const { basket } = useContext(ApplicationContext);
@@ -41,6 +42,7 @@ export default function Header() {
                   <li className="scroll-to-section">
                     <Link to="/shopping-card">Shop :{basket.length}</Link>
                   </li>
+                  <Profile />
                 </ul>
                 <div className="menu-trigger">
                   <span>Menu</span>
