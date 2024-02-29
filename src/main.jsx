@@ -8,6 +8,7 @@ import About from "./pages/about.jsx";
 import Contact from "./pages/contact.jsx";
 import Product from "./pages/product.jsx";
 import Layout from "./layout/Layout.jsx";
+import ShoppingCard from "./pages/shopping-card.jsx";
 /* const router = createBrowserRouter([
   {
     path: "/",
@@ -50,6 +51,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/product/:id" element={<Product />} />
+            <Route path="/shopping-card" element={<ShoppingCard />} />
             <Route path="*" element={<h1>404 - Not Found Page</h1>} />
           </Routes>
         </Layout>

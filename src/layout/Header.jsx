@@ -26,7 +26,7 @@ export default function Header() {
                     </Link>
                   </li>
                   <li className="submenu">
-                    <Link to="javascript:;">Pages</Link>
+                    <Link to="/">Pages</Link>
                     <ul>
                       <li>
                         <Link to="/about">About Us</Link>

@@ -3,7 +3,7 @@ import { ApplicationContext } from "../layout/Layout.jsx";
 import { useContext } from "react";
 export default function Product(props) {
   const product = props.product;
-  const { basket, setBasket } = useContext(ApplicationContext);
+  const { addToBasket } = useContext(ApplicationContext);
   return (
     <div className="col-lg-4">
       <div className="item">
@@ -21,7 +21,7 @@ export default function Product(props) {
                 </Link>
               </li>
               <li>
-                <a href="#" onClick={() => setBasket([...basket, product])}>
+                <a href="#" onClick={() => addToBasket(product)}>
                   <i className="fa fa-shopping-cart"></i>
                 </a>
               </li>

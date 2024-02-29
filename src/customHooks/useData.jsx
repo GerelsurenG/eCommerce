@@ -11,7 +11,6 @@ export default function useData(url, defaultValue = {}) {
         setData(data);
       })
       .catch((error) => {
-        console.log(error);
         setData(defaultValue);
       })
       .finally(() => {

@@ -5,7 +5,7 @@ import { ApplicationContext } from "../layout/Layout.jsx";
 import useData from "../customHooks/useData.jsx";
 
 export default function Product() {
-  const { basket, setBasket } = useContext(ApplicationContext);
+  const { addToBasket } = useContext(ApplicationContext);
   const params = useParams();
   /*  custom hook bolgoj componenthoots dotor bichlee  
   const [product, setProduct] = useState(null);
@@ -30,8 +30,8 @@ export default function Product() {
           <div className="row">
             <div className="col-lg-8">
               <div className="left-images">
-                {product.images.map((image) => (
-                  <img src={image} alt="" />
+                {product.images.map((image, index) => (
+                  <img key={index} src={image} alt="" />
                 ))}
               </div>
             </div>
@@ -88,7 +88,7 @@ export default function Product() {
                 <div className="total">
                   <h4>Total: $</h4>
                   <div className="main-border-button">
-                    <a href="#" onClick={() => setBasket([...basket, product])}>
+                    <a href="#" onClick={() => addToBasket(product)}>
                       Add To Cart
                     </a>
                   </div>
