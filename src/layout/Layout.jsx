@@ -8,49 +8,85 @@ export const ApplicationContext = createContext({
   setBasket: () => {},
 });
 
+/*    sanity project_id bolon token-iig env-ees huwisagchaar avj bolno */
+const project_id = "r8x246y8";
+const project_token =
+  "skePr8ArVN6qfsNiNhVFlmBQCwEJfXhEH6zCx4A6c754jRmAgKvlHgNDgxQEwVlXQNcK3Eil6iUkkMseH0jwWbjYSE7bbG9x4WND4qVf8oXvzDDoS3L2EojuqlDCFGnu1xkbYvG7Bt4ZvF95OD4tyCWP4Oc70Q1nJJjh1AV72eTbONIUWVtx";
+
+function updateDataToSanity(mutations) {
+  fetch(
+    "https://" +
+      project_id +
+      ".api.sanity.io/v2022-03-07/data/mutate/production",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + project_token,
+      },
+      body: JSON.stringify({ mutations }),
+    }
+  );
+}
+
 export default function Layout(props) {
   const { children } = props;
   const [basket, setBasket] = useState([]);
   const { user } = useAuth0();
-  const project_id = "r8x246y8";
-  const project_token =
-    "skePr8ArVN6qfsNiNhVFlmBQCwEJfXhEH6zCx4A6c754jRmAgKvlHgNDgxQEwVlXQNcK3Eil6iUkkMseH0jwWbjYSE7bbG9x4WND4qVf8oXvzDDoS3L2EojuqlDCFGnu1xkbYvG7Bt4ZvF95OD4tyCWP4Oc70Q1nJJjh1AV72eTbONIUWVtx";
 
-  const addToBasket = (product) => {
+  const addToBasket = (product, quantity) => {
+    if (!user) {
+      alert("Та нэвтэрнэ үү!");
+      return;
+    }
+
     const existingProduct = basket.find(
       (item) => item.productId === product.id
     );
 
-    if (existingProduct) {
-      return;
-    }
+    let newOrUpdatedItem;
 
-    setBasket([...basket, product]);
+    if (existingProduct) {
+      //return;
+      existingProduct.productQuantity += quantity;
+      newOrUpdatedItem = existingProduct;
+      setBasket([...basket]);
+    } else {
+      newOrUpdatedItem = {
+        _id: `${Math.random().toString(36).substring(2, 9)}`,
+        _type: "basket",
+        productId: product.id,
+        productName: product.title,
+        productPrice: product.price,
+        productQuantity: quantity,
+        userId: user.sub,
+      };
+      setBasket([...basket, newOrUpdatedItem]);
+    }
+    const mutations = [
+      {
+        createOrReplace: newOrUpdatedItem,
+      },
+    ];
+    updateDataToSanity(mutations);
+  };
+
+  const updateBasketItem = (basketItem, quantity) => {
+    const existingItem = basket.find(
+      (item) => item.productId === basketItem.productId
+    );
+
+    existingItem.productQuantity = quantity;
+
+    setBasket([...basket]);
 
     const mutations = [
       {
-        createOrReplace: {
-          _type: "basket",
-          productId: product.id,
-          productName: product.title,
-          productPrice: product.price,
-          productQuantity: 1,
-          userId: user.sub,
-        },
+        createOrReplace: existingItem,
       },
     ];
 
-    fetch(
-      `https://${project_id}.api.sanity.io/v2022-03-07/data/mutate/production`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${project_token}`,
-        },
-        body: JSON.stringify({ mutations }),
-      }
-    );
+    updateDataToSanity(mutations);
   };
 
   const removeFromBasket = (product) => {
@@ -63,19 +99,7 @@ export default function Layout(props) {
         },
       },
     ];
-
-    /*    sanity project_id bolon token-iig env-ees huwisagchaar avj bolno */
-    fetch(
-      `https://${project_id}.api.sanity.io/v2022-03-07/data/mutate/production`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${project_token}`,
-        },
-        body: JSON.stringify({ mutations }),
-      }
-    );
+    updateDataToSanity(mutations);
   };
 
   useEffect(() => {
@@ -107,7 +131,7 @@ export default function Layout(props) {
 
   return (
     <ApplicationContext.Provider
-      value={{ basket, addToBasket, removeFromBasket }}
+      value={{ basket, addToBasket, removeFromBasket, updateBasketItem }}
     >
       <Header></Header>
       {children}

@@ -21,7 +21,7 @@ export default function Product(props) {
                 </Link>
               </li>
               <li>
-                <a href="#" onClick={() => addToBasket(product)}>
+                <a href="#" onClick={() => addToBasket(product, 1)}>
                   <i className="fa fa-shopping-cart"></i>
                 </a>
               </li>

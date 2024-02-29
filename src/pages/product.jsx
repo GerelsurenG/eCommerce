@@ -19,6 +19,7 @@ export default function Product() {
   const { data: product, loading } = useData(
     "https://dummyjson.com/product/" + params.id
   );
+  const [quantity, setQuantity] = useState(1);
   if (loading) {
     return <div>...</div>;
   }
@@ -67,28 +68,45 @@ export default function Product() {
                   </div>
                   <div className="right-content">
                     <div className="quantity buttons_added">
-                      <input type="button" defaultValue="-" className="minus" />
+                      <input
+                        type="button"
+                        defaultValue="-"
+                        className="minus"
+                        onClick={() => {
+                          if (quantity > 1) {
+                            setQuantity((prevQuantity) => prevQuantity - 1);
+                          }
+                        }}
+                      />
                       <input
                         type="number"
                         step={1}
                         min={1}
                         max=""
                         name="quantity"
-                        defaultValue={1}
+                        value={quantity}
+                        //defaultValue={quantity ? quantity : 1}
                         title="Qty"
                         className="input-text qty text"
                         size={4}
                         pattern=""
                         inputMode=""
                       />
-                      <input type="button" defaultValue="+" className="plus" />
+                      <input
+                        type="button"
+                        defaultValue="+"
+                        className="plus"
+                        onClick={() => {
+                          setQuantity((prevQuantity) => prevQuantity + 1);
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
                 <div className="total">
                   <h4>Total: $</h4>
                   <div className="main-border-button">
-                    <a href="#" onClick={() => addToBasket(product)}>
+                    <a href="#" onClick={() => addToBasket(product, quantity)}>
                       Add To Cart
                     </a>
                   </div>

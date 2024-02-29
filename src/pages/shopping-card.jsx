@@ -3,7 +3,8 @@ import { ApplicationContext } from "../layout/Layout";
 import { Link } from "react-router-dom";
 
 export default function ShoppingCard() {
-  const { basket, removeFromBasket } = useContext(ApplicationContext);
+  const { basket, removeFromBasket, updateBasketItem } =
+    useContext(ApplicationContext);
   return (
     <>
       <div className="page-heading" id="top">
@@ -68,12 +69,10 @@ export default function ShoppingCard() {
                     </a>
                     <div className="media-body pt-3">
                       <h3 className="product-card-title font-weight-semibold border-0 pb-0">
-                        <a href="#">
-                          {item.productName ? item.productName : item.title}
-                        </a>
+                        <a href="#">{item.productName}</a>
                       </h3>
                       <div className="font-size-lg text-primary pt-2">
-                        ${item.productPrice ? item.productPrice : item.price}
+                        ${item.productPrice}
                       </div>
                     </div>
                   </div>
@@ -87,9 +86,10 @@ export default function ShoppingCard() {
                         className="form-control form-control-sm"
                         type="number"
                         id="quantity1"
-                        defaultValue={
-                          item.productQuantity ? item.productQuantity : 1
-                        }
+                        onChange={(e) => {
+                          updateBasketItem(item, parseInt(e.target.value));
+                        }}
+                        value={item.productQuantity}
                       />
                     </div>
                     <button
