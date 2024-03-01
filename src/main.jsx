@@ -3,12 +3,12 @@ import ReactDOM from "react-dom/client";
 import { Auth0Provider } from "@auth0/auth0-react";
 /* import {createBrowserRouter, RouterProvider,} from "react-router-dom"; */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/index.jsx";
-import About from "./pages/about.jsx";
-import Contact from "./pages/contact.jsx";
-import Product from "./pages/product.jsx";
-import Layout from "./layout/Layout.jsx";
-import ShoppingCard from "./pages/shopping-card.jsx";
+import Index from "./user/pages/index.jsx";
+import About from "./user/pages/about.jsx";
+import Contact from "./user/pages/contact.jsx";
+import Product from "./user/pages/product.jsx";
+import Layout from "./user/layout/Layout.jsx";
+import ShoppingCard from "./user/pages/shopping-card.jsx";
 /* const router = createBrowserRouter([
   {
     path: "/",
