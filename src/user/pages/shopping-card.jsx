@@ -1,18 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ApplicationContext } from "../layout/Layout";
-import PageHeading from "../components/PageHeading.jsx";
 import { Link } from "react-router-dom";
-
+function calculatePrice(price, per) {
+  return price * per;
+}
 export default function ShoppingCard() {
   const { basket, removeFromBasket, updateBasketItem } =
     useContext(ApplicationContext);
   return (
     <>
-      <PageHeading></PageHeading>
-
       <section className="section" id="products">
         <div className="container">
-          <div className="row">
+          <div className="row" style={{ marginTop: "5%" }}>
             <div className="col-lg-12">
               <div className="section-heading">
                 <h2>Сагс</h2>
@@ -63,7 +62,10 @@ export default function ShoppingCard() {
                         <a href="#">{item.productName}</a>
                       </h3>
                       <div className="font-size-lg text-primary pt-2">
-                        ${item.productPrice}
+                        Price: ${item.productPrice}
+                      </div>
+                      <div className="font-size-lg text-primary pt-2">
+                        Total: ${item.productTotalPrice || "-"}
                       </div>
                     </div>
                   </div>
@@ -77,8 +79,15 @@ export default function ShoppingCard() {
                         className="form-control form-control-sm"
                         type="number"
                         id="quantity1"
+                        step={1}
+                        min={1}
+                        max=""
                         onChange={(e) => {
-                          updateBasketItem(item, parseInt(e.target.value));
+                          let oldItem = item;
+                          oldItem.productTotalPrice =
+                            parseInt(oldItem.productPrice) *
+                            parseInt(e.target.value);
+                          updateBasketItem(oldItem, parseInt(e.target.value));
                         }}
                         value={item.productQuantity}
                       />

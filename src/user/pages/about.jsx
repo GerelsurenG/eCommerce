@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
-import PageHeading from "../components/PageHeading.jsx";
 export default function About() {
   return (
     <>
-      <PageHeading></PageHeading>
       {/* <!-- ***** About Area Starts ***** --> */}
-      <div className="about-us">
+      <div className="about-us" style={{ marginTop: "10%" }}>
         <div className="container">
           <div className="row">
             <div className="col-lg-6">

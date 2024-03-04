@@ -58,6 +58,7 @@ export default function Layout(props) {
         productId: product.id,
         productName: product.title,
         productPrice: product.price,
+        productTotalPrice: parseInt(product.price) * parseInt(quantity),
         productQuantity: quantity,
         userId: user.sub,
       };

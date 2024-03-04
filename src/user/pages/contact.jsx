@@ -2,8 +2,7 @@ import PageHeading from "../components/PageHeading.jsx";
 export default function Contact() {
   return (
     <>
-      <PageHeading></PageHeading>
-      <div className="contact-us">
+      <div className="contact-us" style={{ marginTop: "10%" }}>
         <div className="container">
           <div className="row">
             <div className="col-lg-6">

@@ -4,9 +4,14 @@ import PageHeading from "../components/PageHeading.jsx";
 import { ApplicationContext } from "../layout/Layout.jsx";
 import useData from "../customHooks/useData.jsx";
 
+function calculatePrice(price, per) {
+  return price * per;
+}
+
 export default function Product() {
   const { addToBasket } = useContext(ApplicationContext);
   const params = useParams();
+
   /*  custom hook bolgoj componenthoots dotor bichlee  
   const [product, setProduct] = useState(null);
   useEffect(() => {
@@ -19,13 +24,23 @@ export default function Product() {
   const { data: product, loading } = useData(
     "https://dummyjson.com/product/" + params.id
   );
+
   const [quantity, setQuantity] = useState(1);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    if (product && product.price) {
+      setTotal(product.price); // Ашиглах утга байгаа бол нэмэх
+    }
+  }, [product]);
+
   if (loading) {
     return <div>...</div>;
   }
+
   return (
     <>
-      <PageHeading></PageHeading>
+      <PageHeading pageName={"Product"}></PageHeading>
       <section className="section" id="product">
         <div className="container">
           <div className="row">
@@ -39,7 +54,7 @@ export default function Product() {
             <div className="col-lg-4">
               <div className="right-content">
                 <h4>{product.title}</h4>
-                <span className="price">${product.price}</span>
+                <span className="price">Price: ${product.price}</span>
                 <ul className="stars">
                   <li>
                     <i className="fa fa-star" />
@@ -75,6 +90,19 @@ export default function Product() {
                         onClick={() => {
                           if (quantity > 1) {
                             setQuantity((prevQuantity) => prevQuantity - 1);
+                            setTotal(
+                              calculatePrice(
+                                parseInt(product.price),
+                                parseInt(quantity - 1)
+                              )
+                            );
+                          } else if (quantity == 1) {
+                            setTotal(
+                              calculatePrice(
+                                parseInt(product.price),
+                                parseInt(quantity)
+                              )
+                            );
                           }
                         }}
                       />
@@ -85,12 +113,14 @@ export default function Product() {
                         max=""
                         name="quantity"
                         value={quantity}
+                        /* onChange={(e) => setQuantity(parseInt(e.target.value))} */
                         //defaultValue={quantity ? quantity : 1}
                         title="Qty"
                         className="input-text qty text"
                         size={4}
                         pattern=""
                         inputMode=""
+                        // readOnly={!!quantity}
                       />
                       <input
                         type="button"
@@ -98,13 +128,19 @@ export default function Product() {
                         className="plus"
                         onClick={() => {
                           setQuantity((prevQuantity) => prevQuantity + 1);
+                          setTotal(
+                            calculatePrice(
+                              parseInt(product.price),
+                              parseInt(quantity + 1)
+                            )
+                          );
                         }}
                       />
                     </div>
                   </div>
                 </div>
                 <div className="total">
-                  <h4>Total: $</h4>
+                  <h4>Total: ${total}</h4>
                   <div className="main-border-button">
                     <a href="#" onClick={() => addToBasket(product, quantity)}>
                       Add To Cart
