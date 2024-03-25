@@ -49,6 +49,8 @@ export default function Layout(props) {
     if (existingProduct) {
       //return;
       existingProduct.productQuantity += quantity;
+      existingProduct.productTotalPrice =
+        parseInt(product.price) * existingProduct.productQuantity;
       newOrUpdatedItem = existingProduct;
       setBasket([...basket]);
     } else {

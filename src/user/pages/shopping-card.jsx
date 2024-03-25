@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
 import { ApplicationContext } from "../layout/Layout";
 import { Link } from "react-router-dom";
-function calculatePrice(price, per) {
-  return price * per;
-}
+
 export default function ShoppingCard() {
   const { basket, removeFromBasket, updateBasketItem } =
     useContext(ApplicationContext);
+
+  const [allProductPrice, setAllProductPrice] = useState([]);
+
   return (
     <>
       <section className="section" id="products">
@@ -42,6 +43,9 @@ export default function ShoppingCard() {
                   </svg>
                   Үргэлжлүүлэх
                 </Link>
+              </h2>
+              <h2 className="h6 d-flex flex-wrap justify-content-end align-items-center px-4 py-3 bg-light">
+                <span>Нийт үнэ: </span>
               </h2>
 
               {/* Item*/}

@@ -142,7 +142,12 @@ export default function Product() {
                 <div className="total">
                   <h4>Total: ${total}</h4>
                   <div className="main-border-button">
-                    <a href="#" onClick={() => addToBasket(product, quantity)}>
+                    <a
+                      href="#"
+                      onClick={() => {
+                        addToBasket(product, quantity);
+                      }}
+                    >
                       Add To Cart
                     </a>
                   </div>
