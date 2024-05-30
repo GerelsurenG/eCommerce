@@ -44,6 +44,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       {/*    <Layout>
         <RouterProvider router={router} />
       </Layout> */}
+      {/* https://ecommerce-cms-react-18.sanity.studio/structure/action */}
       <BrowserRouter>
         <Layout>
           <Routes>

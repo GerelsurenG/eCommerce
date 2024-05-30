@@ -6,6 +6,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 export const ApplicationContext = createContext({
   basket: [],
   setBasket: () => {},
+  action: [],
+  setAction: () => {},
 });
 
 /*    sanity project_id bolon token-iig env-ees huwisagchaar avj bolno */
@@ -33,6 +35,21 @@ export default function Layout(props) {
   const { children } = props;
   const [basket, setBasket] = useState([]);
   const { user } = useAuth0();
+  const [action, setAction] = useState([]);
+
+  let newAction;
+  const setToAction = (userId, act, target) => {
+    newAction = {
+      actionId: `${Math.random().toString(36).substring(2, 9)}`,
+      type: act,
+      target: target,
+      userId: user.sub,
+      date: new Date().toISOString(),
+    };
+    setAction([...action, newAction]);
+    console.log("action show");
+    console.log(action);
+  };
 
   const addToBasket = (product, quantity) => {
     if (!user) {
@@ -53,6 +70,8 @@ export default function Layout(props) {
         parseInt(product.price) * existingProduct.productQuantity;
       newOrUpdatedItem = existingProduct;
       setBasket([...basket]);
+      console.log("action nemeh");
+      setToAction(user.sub, "nemeh", "home");
     } else {
       newOrUpdatedItem = {
         _id: `${Math.random().toString(36).substring(2, 9)}`,
@@ -65,6 +84,8 @@ export default function Layout(props) {
         userId: user.sub,
       };
       setBasket([...basket, newOrUpdatedItem]);
+      console.log("action update");
+      setToAction(user.sub, "update", "home");
     }
     const mutations = [
       {
@@ -103,6 +124,8 @@ export default function Layout(props) {
       },
     ];
     updateDataToSanity(mutations);
+    console.log("action delete");
+    setToAction(user.sub, "delete", "home");
   };
 
   useEffect(() => {
@@ -127,6 +150,7 @@ export default function Layout(props) {
       response.json().then((data) => {
         if (!data.error) {
           setBasket(data.result);
+          console.log(basket);
         }
       });
     });
@@ -134,7 +158,14 @@ export default function Layout(props) {
 
   return (
     <ApplicationContext.Provider
-      value={{ basket, addToBasket, removeFromBasket, updateBasketItem }}
+      value={{
+        basket,
+        addToBasket,
+        removeFromBasket,
+        updateBasketItem,
+        action,
+        setToAction,
+      }}
     >
       <Header></Header>
       {children}
